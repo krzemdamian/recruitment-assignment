@@ -7,6 +7,7 @@ using Common.Domain.ValueObjects.Money;
 
 namespace Domain.DiscountVoucher.ValueObjects
 {
+    // Note DK: YAGNI & Is this correct inheritance relation?
     public class Value : MoneyValueObject
     {
         public Value() : base()

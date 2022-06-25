@@ -9,9 +9,10 @@ namespace Domain.Common
 {
     public class Money : MoneyValueObject
     {
+        // DK Note: money without currency is incoplete
         public Money(decimal value) : base(value, 0m, 99999999999.99m)
         {
         }
-        
+
     }
 }

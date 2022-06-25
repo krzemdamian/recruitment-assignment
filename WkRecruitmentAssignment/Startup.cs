@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MediatR;
+using WebApi.Middlewares;
 
 namespace WebApi
 {
@@ -22,7 +23,7 @@ namespace WebApi
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -37,8 +38,9 @@ namespace WebApi
             services.AddSingleton<IDiscountVoucherRepository, DiscountVoucherRepository>();
 
             services.AddScoped<IActionContextProvider, ActionContextProvider>();
+            services.AddScoped<ActionContextMiddleware>();
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -49,6 +51,7 @@ namespace WebApi
             }
 
             app.UseRouting();
+            app.UseMiddleware<ActionContextMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

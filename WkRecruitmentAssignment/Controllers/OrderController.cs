@@ -21,17 +21,19 @@ namespace WebApi.Controllers
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
-        
-        [HttpPost("Create")]
-        public async Task<Guid> Create(Guid shoppingCartId, string paymentMethod, string remarks)
-        {
-            if (!Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum))
-            {
-                throw new ArgumentException("Wrong payment method value.");
-            }
 
-            var createRequest = new CreateRequest(shoppingCartId, paymentMethodEnum, remarks);
-            throw new NotImplementedException();
+        [HttpPost("Create")]
+        public async Task<Guid> Create([FromBody] CreateRequest createRequest)
+        {
+            //if (!Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum))
+            //{
+            //    // Note DK: It's better to use custom Application exception and handle it in Exception middleware.
+            //    // Middleware can set up proper HTTP status code and provide consistent payload describing error.
+            //    throw new ArgumentException("Wrong payment method value.");
+            //}
+
+            //var createRequest = new CreateRequest(shoppingCartId, paymentMethodEnum, remarks);
+            return await _mediator.Send(createRequest);
         }
     }
 }

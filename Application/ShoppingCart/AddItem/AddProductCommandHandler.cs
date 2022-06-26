@@ -21,7 +21,7 @@ namespace Application.ShoppingCart.AddItem
 
         public AddProductCommandHandler(
             IProductRepository productRepository,
-            IShoppingCartRepository shoppingCartRepository, 
+            IShoppingCartRepository shoppingCartRepository,
             IActionContextProvider actionContextProvider)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
@@ -31,12 +31,15 @@ namespace Application.ShoppingCart.AddItem
 
         public async Task<Unit> Handle(AddProductCommand command, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (command == null) throw new ArgumentNullException(nameof(command));
+
             var productId = ProductId.CreateOrNull(command.ProductId);
             if (!await _productRepository.ExistsAsync(productId))
             {
                 throw new ApplicationException("Product does not exist.");
             }
+
             var shoppingCart = await _shoppingCartRepository.GetByUserIdAsync(_actionContextProvider.ActionContext.UserId);
             shoppingCart.AddProduct(productId);
             return Unit.Value;

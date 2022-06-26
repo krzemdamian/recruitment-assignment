@@ -14,6 +14,9 @@ namespace Domain.ShoppingCart
     {
         public UserId UserId { get; }
         public DiscountVoucherId DiscountVoucherId { get; private set; }
+        public IEnumerable<ShoppingCartItem> Items => _items;
+
+
         private readonly ICollection<ShoppingCartItem> _items = new Collection<ShoppingCartItem>();
 
         public ShoppingCart(UserId userId)
@@ -41,6 +44,12 @@ namespace Domain.ShoppingCart
                 throw new ApplicationException("Can't use second discount code.");
             }
             DiscountVoucherId = discountVoucherId ?? throw new ArgumentNullException(nameof(discountVoucherId));
+        }
+
+        public void Clear()
+        {
+            this.DiscountVoucherId = null;
+            _items.Clear();
         }
     }
 }

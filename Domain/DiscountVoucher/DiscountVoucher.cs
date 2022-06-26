@@ -12,6 +12,7 @@ namespace Domain.DiscountVoucher
         public Code Code { get; }
         public Money Value { get; }
         public bool IsUsed { get; private set; } = false;
+        public bool IsActive => ExpirationDate.Value >= DateTime.Now;
 
         public DiscountVoucher(ExpirationDate expirationDate, Code code, Money value) : base(new DiscountVoucherId())
         {
@@ -19,6 +20,16 @@ namespace Domain.DiscountVoucher
             Code = code ?? throw new ArgumentNullException(nameof(code));
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }
-        
+
+        public void UseOn(Order.Order order)
+        {
+            if (order is null)
+            {
+                return;
+            }
+
+            order.AddVoucher(this);
+            this.IsUsed = true;
+        }
     }
 }

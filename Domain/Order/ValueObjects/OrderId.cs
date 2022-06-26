@@ -20,7 +20,7 @@ namespace Domain.Order.ValueObjects
         {
         }
 
-        public static OrderId CreateOrNull(Guid? id) => id is null ? Void : new OrderId(id.Value);
+        public static OrderId CreateOrNull(int? id) => id is null ? Void : new OrderId(id.Value);
 
     }
 }

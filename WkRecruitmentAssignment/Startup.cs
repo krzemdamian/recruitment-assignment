@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MediatR;
 using WebApi.Middlewares;
+using Domain.Order;
 
 namespace WebApi
 {
@@ -36,6 +37,8 @@ namespace WebApi
             services.AddSingleton<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddSingleton<IDiscountVoucherRepository, DiscountVoucherRepository>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddSingleton<OrderFactory>();
 
             services.AddScoped<IActionContextProvider, ActionContextProvider>();
             services.AddScoped<ActionContextMiddleware>();

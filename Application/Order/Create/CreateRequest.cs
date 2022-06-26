@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.Order.Create
 {
-    public class CreateRequest : IRequest<Guid>
+    public class CreateRequest : IRequest<int>
     {
         public Guid ShoppingCartId { get; set; }
         public PaymentMethod PaymentMethod { get; set; }

@@ -11,6 +11,6 @@ namespace Domain.Order
 {
     public interface IOrderRepository : IRepository<Order, OrderId>
     {
-        int GetNextSequance();
+        ValueTask<int> GetNextSequanceAsync();
     }
 }

@@ -12,21 +12,18 @@ namespace Domain.Order
     public class OrderFactory
     {
         private readonly IProductRepository _productRepository;
-        private readonly IDiscountVoucherRepository _discountVoucherRepository;
         private readonly IOrderRepository _orderRepository;
 
         public OrderFactory(
             IProductRepository productRepository,
-            IDiscountVoucherRepository discountVoucherRepository,
             IOrderRepository orderRepository)
 
         {
             _productRepository = productRepository;
-            _discountVoucherRepository = discountVoucherRepository;
             _orderRepository = orderRepository;
         }
 
-        public async Task<Order> CreateOrder(ShoppingCart.ShoppingCart shoppingCart, PaymentMethod paymentMethod)
+        public async Task<Order> CreateOrder(ShoppingCart.ShoppingCart shoppingCart)
         {
             if (!shoppingCart.Items.Any())
             {
@@ -35,13 +32,9 @@ namespace Domain.Order
 
             var orderItems = await CreateOrderItemsFrom(shoppingCart);
             // DK: This is naive implementation because when exception occurs id continuity will be broken
-            var nextId = _orderRepository.GetNextSequance();
+            var nextId = await _orderRepository.GetNextSequanceAsync();
             var orderId = new OrderId(nextId);
             var order = Order.CreateOrder(orderId, shoppingCart.UserId, orderItems);
-            order.SetPaymentMethod(paymentMethod);
-
-            var discountVoucher = await _discountVoucherRepository.GetOrNullAsync(shoppingCart.DiscountVoucherId);
-            discountVoucher?.UseOn(order);
 
             shoppingCart.Clear();
 

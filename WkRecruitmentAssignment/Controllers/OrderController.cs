@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<Guid> Create([FromBody] CreateRequest createRequest)
+        public async Task<int> Create([FromBody] CreateRequest createRequest)
         {
             //if (!Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum))
             //{

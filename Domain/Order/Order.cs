@@ -2,7 +2,6 @@
 using Common.Domain.User.ValueObjects;
 using Domain.Common;
 using Domain.Order.ValueObjects;
-using Domain.ShoppingCart;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +19,7 @@ namespace Domain.Order
         private DiscountVoucher.ValueObjects.DiscountVoucherId _discountVoucherId;
         private Money _discountVoucherValue;
         private PaymentMethod _paymentMethod;
-        private string _comments;
+        private string _remarks;
 
         protected Order(OrderId id, UserId userId) : base(id)
         {
@@ -61,18 +60,18 @@ namespace Domain.Order
             _discountVoucherValue = voucher.Value;
         }
 
-        public void AddComment(string comment)
+        public void AddRemarks(string remarks)
         {
-            if (comment is null)
+            if (remarks is null)
             {
                 return;
             }
-            if (comment.Length > 200)
+            if (remarks.Length > 200)
             {
                 throw new ArgumentOutOfRangeException("Comment cannot exceed 200 characters.");
             }
 
-            this._comments = comment;
+            this._remarks = remarks;
         }
 
         public void SetPaymentMethod(PaymentMethod paymentMethod)

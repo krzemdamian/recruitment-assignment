@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using MediatR;
 using WebApi.Middlewares;
 using Domain.Order;
+using System.Text.Json.Serialization;
 
 namespace WebApi
 {
@@ -27,7 +28,13 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddJsonOptions(opts =>
+                {
+                    var enumConverter = new JsonStringEnumConverter();
+                    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WkRecruitmentAssignment", Version = "v1" });

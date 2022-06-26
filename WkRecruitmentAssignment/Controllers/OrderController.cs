@@ -25,14 +25,15 @@ namespace WebApi.Controllers
         [HttpPost("Create")]
         public async Task<int> Create([FromBody] CreateRequest createRequest)
         {
-            //if (!Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum))
+            // Note DK: Model validation can be added after ASP.NET Model Binding using
+            // FluentValidation library
+            //if (!Enum.TryParse((int)createRequest.PaymentMethod, out PaymentMethod paymentMethodEnum))
             //{
-            //    // Note DK: It's better to use custom Application exception and handle it in Exception middleware.
-            //    // Middleware can set up proper HTTP status code and provide consistent payload describing error.
+                // Note DK: It's better to use custom Application exception and handle it in Exception middleware.
+                // Middleware can set up proper HTTP status code and provide consistent payload describing error.
             //    throw new ArgumentException("Wrong payment method value.");
             //}
 
-            //var createRequest = new CreateRequest(shoppingCartId, paymentMethodEnum, remarks);
             return await _mediator.Send(createRequest);
         }
     }

@@ -20,7 +20,7 @@ namespace WebApi.Middlewares
 
         public Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var userIdString = context.Request.Headers["UserId"].ToString();
+            var userIdString = context.Request.Headers["userId"].ToString();
 
             var userId = UserId.Void;
 

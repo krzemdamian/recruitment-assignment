@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Order
 {
-    public class OrderFactory
+    public class OrderFactory : IOrderFactory
     {
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;

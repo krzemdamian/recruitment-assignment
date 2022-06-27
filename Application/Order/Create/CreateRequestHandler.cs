@@ -15,14 +15,13 @@ namespace Application.Order.Create
     public class CreateRequestHandler : IRequestHandler<CreateRequest, int>
     {
         private readonly IShoppingCartRepository _shoppingCartRepository;
-        // DK Note: should be hidden behind interface
-        private readonly OrderFactory _orderFactory;
+        private readonly IOrderFactory _orderFactory;
         private readonly IOrderRepository _orderRepository;
         private readonly IDiscountVoucherRepository _discountVoucherRepository;
 
         public CreateRequestHandler(
             IShoppingCartRepository shoppingCartRepository,
-            OrderFactory orderFactory,
+            IOrderFactory orderFactory,
             IOrderRepository orderRepository,
             IDiscountVoucherRepository discountVoucherRepository)
         {

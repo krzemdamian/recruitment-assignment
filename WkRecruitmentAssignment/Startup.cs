@@ -45,7 +45,7 @@ namespace WebApi
             services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddSingleton<IDiscountVoucherRepository, DiscountVoucherRepository>();
             services.AddSingleton<IOrderRepository, OrderRepository>();
-            services.AddSingleton<OrderFactory>();
+            services.AddSingleton<IOrderFactory, OrderFactory>();
 
             services.AddScoped<IActionContextProvider, ActionContextProvider>();
             services.AddScoped<ActionContextMiddleware>();
